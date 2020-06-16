@@ -408,9 +408,13 @@ len(df2.query('landing_page=="new_page"'))/len(df2.index)
 
 
 
-e. Consider your results from a. through d. above, and explain below whether you think there is sufficient evidence to say that the new treatment page leads to more conversions.
+### Consider your results from a. through d. above, and explain below whether you think there is sufficient evidence to say that the new treatment page leads to more conversions.
 
-**Probability of individual converting given individual is in control group is 0.1203863045004612. Probability of individual converting given individual is in treatment group is 0.11880724790277405. According to the analysis this is clear that there is no more conversion between new page and old page. As the converting rate is similar in both cases so it is important to consider other factors.**
+> - Probability of individual converting given individual is in control group = **0.1203863045004612.**
+> - Probability of individual converting given individual is in treatment group = **0.11880724790277405.**
+>
+> This Analysis gives a strong evidence that there isn't any further conversion between new page and old page.
+> Since the conversion Probability of both are nearly same, then it is neccessary to analyse other factors too.
 
 <a id='ab_test'></a>
 ### Part II - A/B Test
@@ -429,7 +433,7 @@ $$H_1: p_{new} - p_{old} > 0$$
 
 `2.` Assume under the null hypothesis, $p_{new}$ and $p_{old}$ both have "true" success rates equal to the **converted** success rate regardless of page - that is $p_{new}$ and $p_{old}$ are equal. Furthermore, assume they are equal to the **converted** rate in **ab_data.csv** regardless of the page. <br><br>
 
-Use a sample size for each page equal to the ones in **ab_data.csv**.  <br><br>
+Use a sample size for each page equal to the ones in **dataset-ab.csv**.  <br><br>
 
 Perform the sampling distribution for the difference in **converted** between the two pages over 10,000 iterations of calculating an estimate from the null.  <br><br>
 
@@ -549,7 +553,7 @@ obs_diff
 
 
 
-    -0.0007954699394630005
+    0.00045723344638382013
 
 
 
@@ -577,7 +581,7 @@ i. Plot a histogram of the **p_diffs**.  Does this plot look like what you expec
 ```python
 p_diffs=np.array(p_diffs)
 #histogram of p_diff
-plt.hist(p_diffs)
+plt.hist(p_diffs, color='purple')
 plt.title('Graph of p_diffs')#title of graphs
 plt.xlabel('Page difference') # x-label of graphs
 plt.ylabel('Count') # y-label of graphs
@@ -597,7 +601,7 @@ plt.ylabel('Count') # y-label of graphs
 
 ```python
 #histogram of p_diff
-plt.hist(p_diffs);
+plt.hist(p_diffs, color='green');
 
 plt.title('Graph of p_diffs') #title of graphs
 plt.xlabel('Page difference') # x-label of graphs
@@ -610,7 +614,7 @@ plt.axvline(x= obs_diff, color='r');
 ![svg](output_63_0.svg)
 
 
-j. What proportion of the **p_diffs** are greater than the actual difference observed in **ab_data.csv**?
+### What proportion of the **p_diffs** are greater than the actual difference observed in **dataset-ab.csv**?
 
 
 ```python
@@ -627,14 +631,14 @@ for i in p_diffs:
 print (count/(len(p_diffs)))
 ```
 
-    0.9048
+    0.9058
     
 
-k. In words, explain what you just computed in part **j.**  What is this value called in scientific studies?  What does this value mean in terms of whether or not there is a difference between the new and old pages?
+### In words, explain what you just computed.  What is this value called in scientific studies?  What does this value mean in terms of whether or not there is a difference between the new and old pages?
 
-**The value calculated is called p-value. For accepting null hypothesis p-value should be greater than suggested p-value. Wr calculate that almost 90% of the population is above the real diffrence which suggested that new-page is not doing significantly better than the old page. New page is worse than old page, so we should stick to the null hyposthesis as p-value is large.**
+> Above calculation of p-value is almost ***90%*** of the population is above the real diffrence which suggested that, the new-page is not doing significantly better than the old page. Therefore we should stick to the null hyposthesis as p-value is very large.
 
-l. We could also use a built-in to achieve similar results.  Though using the built-in might be easier to code, the above portions are a walkthrough of the ideas that are critical to correctly thinking about statistical significance. Fill in the below to calculate the number of conversions for each page, as well as the number of individuals who received each page. Let `n_old` and `n_new` refer the the number of rows associated with the old page and new pages, respectively.
+### We could also use a built-in to achieve similar results.  Though using the built-in might be easier to code, the above portions are a walkthrough of the ideas that are critical to correctly thinking about statistical significance. Fill in the below to calculate the number of conversions for each page, as well as the number of individuals who received each page. Let `n_old` and `n_new` refer the the number of rows associated with the old page and new pages, respectively.
 
 
 ```python
@@ -668,7 +672,7 @@ print(z_score,p_value)
     1.3116075339133115 0.905173705140591
     
 
-n. What do the z-score and p-value you computed in the previous question mean for the conversion rates of the old and new pages?  Do they agree with the findings in parts **j.** and **k.**?
+### What do the z-score and p-value you computed in the previous question mean for the conversion rates of the old and new pages?  Do they agree with the finding?
 
 
 ```python
@@ -845,7 +849,7 @@ results.summary()
   <th>Date:</th>            <td>Tue, 16 Jun 2020</td> <th>  Pseudo R-squ.:     </th>  <td>8.085e-06</td> 
 </tr>
 <tr>
-  <th>Time:</th>                <td>16:19:33</td>     <th>  Log-Likelihood:    </th> <td>-1.0639e+05</td>
+  <th>Time:</th>                <td>21:32:22</td>     <th>  Log-Likelihood:    </th> <td>-1.0639e+05</td>
 </tr>
 <tr>
   <th>converged:</th>             <td>True</td>       <th>  LL-Null:           </th> <td>-1.0639e+05</td>
@@ -1438,7 +1442,7 @@ logit3
 
 
 
-    <statsmodels.discrete.discrete_model.Logit at 0x2b4033ef188>
+    <statsmodels.discrete.discrete_model.Logit at 0x1deee0cba88>
 
 
 
@@ -1480,7 +1484,7 @@ result3.summary()
   <th>Date:</th>            <td>Tue, 16 Jun 2020</td> <th>  Pseudo R-squ.:     </th>  <td>2.590e-05</td> 
 </tr>
 <tr>
-  <th>Time:</th>                <td>16:19:38</td>     <th>  Log-Likelihood:    </th> <td>-1.0639e+05</td>
+  <th>Time:</th>                <td>21:32:25</td>     <th>  Log-Likelihood:    </th> <td>-1.0639e+05</td>
 </tr>
 <tr>
   <th>converged:</th>             <td>True</td>       <th>  LL-Null:           </th> <td>-1.0639e+05</td>
